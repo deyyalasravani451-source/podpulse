@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+  <meta charset="UTF-8">
+
+  <meta
+    name="viewport"
+    content="width=device-width, initial-scale=1.0"
+  >
+
+  <title>PodPulse Lite</title>
+
+
+  <!-- Google Font -->
+
+  <link
+    rel="preconnect"
+    href="https://fonts.googleapis.com"
+  >
+
+  <link
+    rel="preconnect"
+    href="https://fonts.gstatic.com"
+    crossorigin
+  >
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+
+  <!-- Main CSS -->
+
+  <link
+    rel="stylesheet"
+    href="/style.css"
+  >
+
+
+  <!-- Chart.js -->
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+  <div class="app-shell">
+
+
+    <!-- =====================================================
+         SIDEBAR
+    ====================================================== -->
+
+    <aside class="sidebar">
+
+      <div class="brand">
+
+        <div class="brand-icon">
+          P
+        </div>
+
+        <div>
+
+          <h1>PodPulse</h1>
+
+          <span>
+            Lite Analytics
+          </span>
+
+        </div>
+
+      </div>
+
+
+      <nav>
+
+        <a
+          class="active"
+          href="#"
+        >
+          <span>⌂</span>
+          Dashboard
+        </a>
+
+
+        <a href="#comments">
+
+          <span>▤</span>
+          Comments
+
+        </a>
+
+
+        <a href="#keywords">
+
+          <span>⌁</span>
+          Keywords
+
+        </a>
+
+      </nav>
+
+
+      <div class="side-note">
+
+        <strong>
+          Quick analysis
+        </strong>
+
+        <p>
+          Paste a social-media URL and discover what viewers are saying.
+        </p>
+
+      </div>
+
+    </aside>
+
+
+
+    <!-- =====================================================
+         MAIN CONTENT
+    ====================================================== -->
+
+    <main class="main">
+
+
+      <!-- ===================================================
+           TOP BAR
+      ==================================================== -->
+
+      <header class="topbar">
+
+        <div>
+
+          <p class="eyebrow">
+            SOCIAL MEDIA COMMENT ANALYTICS
+          </p>
+
+
+          <h2>
+            Understand your audience
+          </h2>
+
+
+          <p class="sub">
+            Analyze sentiment, spam and popular keywords from social-media comments.
+          </p>
+
+        </div>
+
+
+        <div class="status">
+
+          <span></span>
+
+          Ready
+
+        </div>
+
+      </header>
+
+
+
+      <!-- ===================================================
+           ANALYZER CARD
+      ==================================================== -->
+
+      <section class="analyzer-card">
+
+        <div class="input-wrap">
+
+
+          <label for="socialUrl">
+            Social Media URL
+          </label>
+
+
+          <div class="input-row">
+
+
+            <input
+              id="socialUrl"
+              type="url"
+              placeholder="Paste YouTube, Instagram, TikTok or social-media URL"
+              autocomplete="off"
+            >
+
+
+            <button
+              id="analyzeBtn"
+              type="button"
+            >
+
+              RUN ANALYSIS
+
+              <span>
+                →
+              </span>
+
+            </button>
+
+
+          </div>
+
+
+          <!-- Platform information -->
+
+          <p
+            id="platform"
+            class="platform-info"
+          ></p>
+
+
+          <!-- Error / success message -->
+
+          <p
+            id="message"
+            class="message"
+          ></p>
+
+
+          <!-- Loading -->
+
+          <div
+            id="loading"
+            class="loading"
+            style="display: none;"
+          >
+
+            Analyzing comments...
+
+          </div>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           STATISTICS
+      ==================================================== -->
+
+      <section class="stats-grid">
+
+
+        <!-- Total -->
+
+        <div class="stat-card">
+
+          <div class="stat-top">
+
+            <span>
+              Total Comments
+            </span>
+
+            <div class="stat-icon">
+              ▤
+            </div>
+
+          </div>
+
+
+          <strong id="totalComments">
+            0
+          </strong>
+
+
+          <small>
+            Comments analyzed
+          </small>
+
+        </div>
+
+
+
+        <!-- Positive -->
+
+        <div class="stat-card positive">
+
+          <div class="stat-top">
+
+            <span>
+              Positive
+            </span>
+
+            <div class="stat-icon">
+              ↑
+            </div>
+
+          </div>
+
+
+          <strong id="positive">
+            0
+          </strong>
+
+
+          <small id="positivePct">
+            0%
+          </small>
+
+        </div>
+
+
+
+        <!-- Negative -->
+
+        <div class="stat-card negative">
+
+          <div class="stat-top">
+
+            <span>
+              Negative
+            </span>
+
+            <div class="stat-icon">
+              ↓
+            </div>
+
+          </div>
+
+
+          <strong id="negative">
+            0
+          </strong>
+
+
+          <small id="negativePct">
+            0%
+          </small>
+
+        </div>
+
+
+
+        <!-- Neutral -->
+
+        <div class="stat-card neutral">
+
+          <div class="stat-top">
+
+            <span>
+              Neutral
+            </span>
+
+            <div class="stat-icon">
+              —
+            </div>
+
+          </div>
+
+
+          <strong id="neutral">
+            0
+          </strong>
+
+
+          <small id="neutralPct">
+            0%
+          </small>
+
+        </div>
+
+
+
+        <!-- Spam -->
+
+        <div class="stat-card spam">
+
+          <div class="stat-top">
+
+            <span>
+              Spam
+            </span>
+
+            <div class="stat-icon">
+              !
+            </div>
+
+          </div>
+
+
+          <strong id="spam">
+            0
+          </strong>
+
+
+          <small id="spamPct">
+            0%
+          </small>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           DASHBOARD
+      ==================================================== -->
+
+      <section class="dashboard-grid">
+
+
+        <!-- =================================================
+             SENTIMENT PANEL
+        ================================================== -->
+
+        <div class="panel sentiment-panel">
+
+
+          <div class="panel-heading">
+
+            <div>
+
+              <h3>
+                Sentiment Overview
+              </h3>
+
+              <p>
+                Distribution of viewer sentiment
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="donut-area">
+
+
+            <div class="donut-wrap">
+
+              <canvas
+                id="sentimentChart"
+              ></canvas>
+
+
+              <div class="donut-center">
+
+                <strong id="donutTotal">
+                  0
+                </strong>
+
+                <span>
+                  comments
+                </span>
+
+              </div>
+
+            </div>
+
+
+
+            <!-- Legend -->
+
+            <div class="legend">
+
+
+              <div>
+
+                <i class="dot positive-dot"></i>
+
+                <span>
+                  Positive
+                </span>
+
+                <b id="legendPositive">
+                  0
+                </b>
+
+              </div>
+
+
+              <div>
+
+                <i class="dot negative-dot"></i>
+
+                <span>
+                  Negative
+                </span>
+
+                <b id="legendNegative">
+                  0
+                </b>
+
+              </div>
+
+
+              <div>
+
+                <i class="dot neutral-dot"></i>
+
+                <span>
+                  Neutral
+                </span>
+
+                <b id="legendNeutral">
+                  0
+                </b>
+
+              </div>
+
+
+              <div>
+
+                <i class="dot spam-dot"></i>
+
+                <span>
+                  Spam
+                </span>
+
+                <b id="legendSpam">
+                  0
+                </b>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+
+
+
+        <!-- =================================================
+             KEYWORDS PANEL
+        ================================================== -->
+
+        <div
+          class="panel"
+          id="keywords"
+        >
+
+
+          <div class="panel-heading">
+
+            <div>
+
+              <h3>
+                Top Keywords
+              </h3>
+
+              <p>
+                Most frequent meaningful words
+              </p>
+
+            </div>
+
+          </div>
+
+
+          <div class="keyword-chart">
+
+            <canvas
+              id="keywordChart"
+            ></canvas>
+
+          </div>
+
+
+          <div
+            id="keywordEmpty"
+            class="empty"
+          >
+
+            Run an analysis to see keywords.
+
+          </div>
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           COMMENTS
+      ==================================================== -->
+
+      <section
+        class="panel comments-panel"
+        id="comments"
+      >
+
+
+        <div class="panel-heading">
+
+
+          <div>
+
+            <h3>
+              Recent Comments
+            </h3>
+
+            <p>
+              Viewer comments with automatic sentiment labels
+            </p>
+
+          </div>
+
+
+          <span
+            class="count-pill"
+            id="commentCount"
+          >
+
+            0 comments
+
+          </span>
+
+
+        </div>
+
+
+
+        <div class="table-wrap">
+
+
+          <table>
+
+
+            <thead>
+
+              <tr>
+
+                <th>
+                  #
+                </th>
+
+                <th>
+                  USER
+                </th>
+
+                <th>
+                  COMMENT
+                </th>
+
+                <th>
+                  SENTIMENT
+                </th>
+
+              </tr>
+
+            </thead>
+
+
+            <tbody id="commentsBody">
+
+
+              <tr>
+
+                <td
+                  colspan="4"
+                  class="empty-cell"
+                >
+
+                  Run an analysis to load comments.
+
+                </td>
+
+              </tr>
+
+
+            </tbody>
+
+
+          </table>
+
+
+        </div>
+
+      </section>
+
+
+
+      <!-- ===================================================
+           FOOTER
+      ==================================================== -->
+
+      <footer>
+
+        PodPulse Lite • Social Media Comment Analytics
+
+      </footer>
+
+
+    </main>
+
+  </div>
+
+
+
+  <!-- =====================================================
+       PODPULSE JAVASCRIPT
+  ====================================================== -->
+
+  <script src="/script.js"></script>
+
+
+</body>
+
+</html>
