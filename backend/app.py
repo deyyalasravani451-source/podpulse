@@ -20,8 +20,6 @@ from youtube_comment_downloader import (
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
-
 
 # =========================================================
 # FLASK APP
@@ -32,6 +30,13 @@ app = Flask(
     static_folder=FRONTEND_DIR,
     static_url_path=""
 )
+FRONTEND_DIR = os.path.join(BASE_DIR, "frontend")
+@app.get("/")
+def index():
+    return send_from_directory(
+        FRONTEND_DIR,
+        "index.html"
+    )
 
 CORS(app)
 
